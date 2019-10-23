@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h6>scene settings</h6>
+    <input id="backgroundColor" type="color">
+    <script>
+        const backgroundColorRep = nodecg.Replicant('backgroundColor')
+        backgroundColor.addEventListener("change", watchBackgroundColor, false);
+        function watchBackgroundColor(event) {
+            backgroundColorRep.value = event.target.value
+        }
+    </script>
+</body>
+
+</html>

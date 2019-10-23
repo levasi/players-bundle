@@ -22,10 +22,24 @@
     "compatibleRange": "^1.1.1",
     "dashboardPanels": [
       {
-        "name": "panel",
-        "title": "Panel",
+        "name": "Scene Settings",
+        "title": "Scene Settings",
         "width": 2,
-        "file": "panel.html",
+        "file": "scene-settings.html",
+        "headerColor": "#525F78"
+      },
+      {
+        "name": "Edit players",
+        "title": "Edit players",
+        "width": 2,
+        "file": "edit-players.html",
+        "headerColor": "#525F78"
+      },
+      {
+        "name": "Scene controls",
+        "title": "Scene controls",
+        "width": 2,
+        "file": "scene-controls.html",
         "headerColor": "#525F78"
       }
     ],

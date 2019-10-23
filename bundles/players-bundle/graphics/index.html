@@ -1,37 +1,191 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
+    <title>Player Presentation - IC Control Media</title>
     <meta charset="UTF-8">
-	<style>
-		body {
-			font-family: sans-serif;
-		}
 
-		.monospace {
-			font-family: monospace;
-		}
-	</style>
+    <meta name="theme-color" content="#1c1f26" />
+
+    <link rel="stylesheet" type="text/css" href="assets/css/player-presentation.css">
+
 </head>
+
 <body>
-	<p>
-		Hello, I'm one of the graphics in your bundle!
-		I'm where you put the graphics you want to run in your broadcast software!
-	</p>
 
-	<p>To edit me, open "<span id="path" class="monospace"></span>" in your favorite text editor or IDE.</p>
+    <div class="wrapper player-wrapper">
+        <!-- .no-image-player -->
 
-	<p>You can use any libraries, frameworks, and tools you want. There are no limits.</p>
+        <svg class="player-presentation-svg background-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"
+            width="100%" height="100%" preserveAspectRatio="none">
+            <defs>
+                <clipPath id="player-presentation-mask">
+                    <rect fill="000000" width="1920" height="1080" />
+                </clipPath>
 
-	<p>Visit <a href="https://nodecg.com" target="_blank" rel="noopener">https://nodecg.com</a> for full documentation.</p>
+            </defs>
+            <g clip-path="url(#player-presentation-mask)">
+                <g>
+                    <linearGradient id="bg-gradient" gradientUnits="userSpaceOnUse" x1="960" y1="1080" x2="960"
+                        y2="-9.094947e-13">
+                        <stop offset="0" style="stop-color:#191A1D" />
+                        <stop offset="1" style="stop-color:#252B3B" />
+                    </linearGradient>
+                    <rect class="bg-gradient" width="1920" height="1080" />
+                </g>
+                <g>
+                    <linearGradient id="left-box-gradient" gradientUnits="userSpaceOnUse" x1="586.7495" y1="1080"
+                        x2="586.7495" y2="-9.094947e-13">
+                        <stop offset="0" style="stop-color:#191A1D" />
+                        <stop offset="1" style="stop-color:#252B3B" />
+                    </linearGradient>
+                    <polygon class="left-box" points="745.5,1080 -2.3,1080 -2.3,0 1175.8,0 " />
+                </g>
+                <g>
+                    <linearGradient id="right-box-gradient" gradientUnits="userSpaceOnUse" x1="1330.6401" y1="0"
+                        x2="1330.6401" y2="1080" gradientTransform="matrix(-1 0 0 -1 2663.8906 1080)">
+                        <stop offset="0" style="stop-color:#191A1D" />
+                        <stop offset="1" style="stop-color:#252B3B" />
+                    </linearGradient>
+                    <polygon class="right-box" points="1174.5,0 1922.3,0 1922.3,1080 744.2,1080 " />
+                </g>
 
-	<p>Have fun!</p>
+                <g>
+                    <image width="1920" height="1080" class="bg-img" xlink:href="assets/images/football-field-image.png"
+                        transform="matrix(1 0 0 1 0 0)"></image>
+                </g>
 
-	<script>
-		document.getElementById('path').textContent = `nodecg${window.location.pathname}`;
+            </g>
+        </svg>
 
-		// You can access the NodeCG api anytime from the `window.nodecg` object
-		// Or just `nodecg` for short. Like this!:
-		nodecg.log.info('Here\'s an example of using NodeCG\'s logging API!');
-	</script>
+        <svg class="player-presentation-svg content-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"
+            width="1920" height="1080">
+            <defs>
+                <clipPath id="player-presentation-mask">
+                    <rect fill="000000" width="1920" height="1080" />
+                </clipPath>
+                <linearGradient id="player-img-mask" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0" style="stop-color:white;stop-opacity:1" />
+                    <stop offset="0.8" style="stop-color:white; stop-opacity:1" />
+                    <stop offset="0.9" style="stop-color:white; stop-opacity:0.8" />
+                    <stop offset="0.95" style="stop-color:white; stop-opacity:0.4" />
+                    <stop offset="1" style="stop-color:white; stop-opacity:0" />
+                </linearGradient>
+
+                <mask id="gradient-mask">
+                    <rect class="player-img-mask" y="0" width="1000" height="1000" />
+                </mask>
+
+
+            </defs>
+            <g clip-path="url(#player-presentation-mask)">
+
+                <g>
+                    <image width="600" height="600" class="team-logo-bg desaturate"
+                        xlink:href="assets/images/team-logo-player.png" transform="matrix(1.8 0 0 1.8 900 -15)"></image>
+                    <image width="600" height="600" class="team-logo" xlink:href="assets/images/team-logo-player.png"
+                        transform="matrix(0.4 0 0 0.4 1575 95)"></image>
+
+                    <image class="player-img" width="1000" height="1000" xlink:href="assets/images/player.png"
+                        transform="matrix(1 0 0 1 -35 80)" mask="url(#gradient-mask)"></image>
+
+                    <!--<image xlink:href="sample2.png"  style="opacity: .5"></image>-->
+
+                </g>
+
+            </g>
+        </svg>
+
+
+        <svg class="player-presentation-svg player-content-svg" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1920 1080" width="1920" height="1080">
+            <defs>
+                <clipPath id="player-presentation-mask">
+                    <rect fill="000000" width="1920" height="1080" />
+                </clipPath>
+
+                <clipPath id="name-text-clip">
+                    <rect class="name-text-clip-rect" width="600" height="140" fill="#000" />
+                </clipPath>
+
+            </defs>
+            <g clip-path="url(#player-presentation-mask)">
+
+                <g class="player-content">
+                    <g class="player-info">
+                        <g transform="translate(940,175)" clip-path="url(#name-text-clip)">
+                            <!-- <rect fill="#000" fill-opacity="1" width="100%" height="100%" class="card-txt-box"></rect>-->
+                            <text class="name-txt name-txt-1" y="70" alignment-baseline="middle">Tobias</text>
+                        </g>
+                        <g transform="translate(940,315)" clip-path="url(#name-text-clip)">
+                            <text class="name-txt name-txt-2" x="0" alignment-baseline="hanging">Erricson</text>
+                        </g>
+                        <g transform="translate(940,474)" clip-path="url(#name-text-clip)">
+                            <text class="no-txt number-txt" x="0" alignment-baseline="hanging">1</text>
+                            <text class="description-txt status-txt" alignment-baseline="baseline" dy="90"
+                                text-anchor="start">Goaltander</text>
+                        </g>
+
+                        <g class="details" transform="matrix(1 0 0 1 0 815)">
+                            <g class="age" width="60" height="140" transform="matrix(1 0 0 1 70 0)">
+                                <g class="details-circle-svg">
+                                    <circle cx="100" cy="100" r="97.3" />
+                                </g>
+                                <text text-anchor="middle" x="0" y="0" class="details-txt">26</text>
+                                <text text-anchor="middle" x="0" y="120" class="details-desc-txt">Age</text>
+                            </g>
+                            <g class="height" transform="matrix(1 0 0 1 300 0)">
+                                <g class="details-circle-svg">
+                                    <circle cx="100" cy="100" r="97.3" />
+                                </g>
+                                <text text-anchor="middle" x="0" y="0" class="details-txt">182</text>
+                                <text text-anchor="middle" x="0" y="120" class="details-desc-txt">Height</text>
+                            </g>
+                            <g class="weight" transform="matrix(1 0 0 1 530 0)">
+                                <g class="details-circle-svg">
+                                    <circle cx="100" cy="100" r="97.3" />
+                                </g>
+                                <text text-anchor="middle" x="0" y="0" class="details-txt">70</text>
+                                <text text-anchor="middle" x="0" y="120" class="details-desc-txt">Weight</text>
+                            </g>
+                        </g>
+
+                    </g>
+
+                </g>
+
+            </g>
+        </svg>
+
+    </div>
+
+
+
+
+    <script src="assets/js/jquery/jquery-3.4.1.min.js"></script>
+    <script src="assets/js/GreenSock/TweenMax.min.js"></script>
+    <script src='assets/js/GreenSock/plugins/DrawSVGPlugin.min.js'></script>
+
+    <script src="assets/js/reconnecting-websocket.js"></script>
+    <script src='assets/js/sibhelper.js'></script>
+    <script src='main.js'></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-55755753-3"></script>
+    <script>
+        if (document.location.hostname != 'localhost') {
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
+            gtag('js', new Date());
+
+            gtag('config', 'UA-55755753-3');
+        }
+    </script>
+
+
 </body>
+
 </html>

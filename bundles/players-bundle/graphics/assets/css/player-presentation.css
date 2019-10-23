@@ -1,0 +1,116 @@
+:root {
+	--greenLight: #cbf8eb;
+}
+
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat-Bold';
+    src: url('../fonts/Montserrat-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+* { margin:0; padding:0; -webkit-box-sizing:border-box; box-sizing:border-box; -webkit-touch-callout: none; /*-webkit-overflow-scrolling: touch;*/ }
+
+/* -------- */
+
+html, body { width:100vw; height: 100vh; margin:0; padding:0; font-family: Montserrat, Arial, sans-serif; background:transparent!important; overflow:hidden; }
+body { color:#686969; }
+html { margin:0!important; }
+
+img, a img { border:none; }
+a { outline:none; text-decoration:none; color:#06b483; }
+a:hover span { text-decoration:none; }
+ul, ol { list-style-type:none; }
+h1, h2, h3, h4, h5, h6 { font-weight: bold; font-family: Montserrat, Arial, sans-serif; }
+strong { font-weight: 600; }
+
+/* -------- */
+
+.wrapper { width:100%; height:100%; position:relative; overflow:hidden; background:transparent!important; }
+
+.wrapper svg { background:transparent!important; overflow:hidden; }
+.player-presentation-svg { opacity:0; width:100%; height:auto; position:absolute; z-index:0; top:50%; left:50%; transform: translate3d(-50%,-50%,0); }
+
+.bg-gradient { opacity:0; fill:url(#bg-gradient); }
+.bg-img,
+.team-logo-bg { opacity:0; }
+
+.player-img-mask { opacity:0; fill:url(#player-img-mask); }
+
+.no-image-player .player-img,
+.no-image-player .player-img-mask { display:none; }
+
+.left-box { opacity:1; fill:url(#left-box-gradient); }
+.right-box { opacity:1; fill:url(#right-box-gradient); }
+
+.football-field { fill:rgba(255,255,255,.02);  }
+
+.player-presentation-svg text { fill:#fff; font-family: 'Montserrat-Regular', Arial, sans-serif; text-shadow: 3px 3px 0 rgba(0,0,0,.3); }
+.player-presentation-svg text tspan { display:block; }
+
+.player-presentation-svg .name-txt { font-size:140px; letter-spacing:-3px; font-family: 'Montserrat-Bold', Arial, sans-serif; }
+.player-presentation-svg .no-txt { font-size:128px; font-family: 'Montserrat-Bold', Arial, sans-serif; }
+.player-presentation-svg .description-txt { font-size:56px; }
+.player-presentation-svg .details-txt { font-size:78px; text-align:center; }
+.player-presentation-svg .details-desc-txt { font-size:36px; text-align:center; text-transform:uppercase; fill:rgba(255,255,255,.5);  }
+
+.player-content { opacity:0; width:33vw; height:100%; position:absolute; top:0; right:18vw; color:#fff; text-shadow: 3px 3px 0 rgba(0,0,0,.3); /*overflow:hidden;*/ }
+.no-image-player .player-content { width: 65vw; }
+.no-image-player .player-content .name p {max-width: 65vw;}
+
+/*.player-content .table,
+.player-content .table-cell { width:100%; height:100%; display:table; }
+.player-content .table-cell { display:table-cell; vertical-align:middle; padding:1vw 0; }*/
+
+.player-content .name { max-height:15.6vw; margin:4vw 0 1.2vw; overflow:hidden; }
+.player-content .name p { width:100%; height:7.28vw; position:relative; overflow:hidden; max-width: 33vw; }
+.player-content .name-txt { height:100%; display:block; font-size:140px; line-height:140px; letter-spacing:-3px; font-family: 'Montserrat-Bold', Arial, sans-serif; overflow:hidden; }
+.name-txt-format { font-size: 140px; line-height: 140px; letter-spacing: -3px; font-family: 'Montserrat-Bold', Arial, sans-serif;}
+
+.player-content .description { min-height:6.8vw; max-height:9.6vw; margin-bottom:4.5vw; position:relative; overflow:hidden; }
+.player-content .description .no-txt { float:left; margin-right:1.6vw; display:inline-block; font-size:130px; line-height:130px; font-weight:bold; font-family: 'Montserrat-Bold', Arial, sans-serif; }
+.player-content .description .description-txt { height:6.2vw; display:block; white-space: pre; padding-top: 3vw; font-size:55px; line-height:62px; font-family: 'Montserrat-Regular', Arial, sans-serif; overflow:hidden; }
+.status-txt-format {font-size:55px; line-height:62px; font-family: 'Montserrat-Regular', Arial, sans-serif;}
+
+
+
+
+
+.details { width:100%; overflow:hidden; list-style-type:none; margin:0; }
+.details li { height:100%; margin-right:1vw; float:left; overflow:hidden; text-align:center; }
+.details li:last-of-type { margin-right:0; }
+
+
+.details-circle-svg { transform: translate(-98px,-128px); }
+.details-circle-svg circle { fill: none; stroke: rgba(255,255,255,.5); stroke-width: .18vw; stroke-miterlimit: 10; stroke-linecap:round; }
+
+/*
+.details .details-txt { width:100%; height:100%; position:absolute; top:0; left:0; display:block; position:relative; font-size:3.8vw; line-height:10vw; font-family: 'Montserrat-Regular', Arial, sans-serif; font-weight:normal; }
+.details .details-desc-txt { opacity:0; width:100%; height:2.2vw; display:block; font-size:1.6vw; line-height:2.2vw; text-transform:uppercase; font-family: 'Montserrat-Regular', Arial, sans-serif; font-weight:normal; color:rgba(255,255,255,.5); overflow:hidden; }
+*/
+
+.details {transform: matrix(1, 0, 0, 1, 936, 802); }
+.details .details-txt { font-size:78px; text-align:center; }
+.details .details-desc-txt { font-size:32px; text-align:center; text-transform:uppercase; fill:rgba(255,255,255,.5);  }
+
+.name-text-clip-rect {width:660;}
+.no-image-player .name-text-clip-rect {width:1248;}
+
+.player-info {transform: matrix(1, 0, 0, 1, 0, 31);}
+.no-image-player .player-info {transform: matrix(1, 0, 0, 1, -605, 31);}
+
+.background-svg {
+    transform: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
