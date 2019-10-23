@@ -4,18 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <style>
-
+        .pb-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
     </style>
 </head>
 
 <body>
-    <h6>scene settings</h6>
-    <input id="backgroundColor" type="color">
+    <div class="pb-colors">
+        <label class="pb-label">
+            <p>Background color</p>
+            <input id="backgroundColor" type="color">
+        </label>
+        <label class="pb-label">
+            <p>Text color</p>
+            <input id="textColor" type="color">
+        </label>
+    </div>
     <script>
         const backgroundColorRep = nodecg.Replicant('backgroundColor')
+        const textColorRep = nodecg.Replicant('textColor')
+
         backgroundColor.addEventListener("change", watchBackgroundColor, false);
+        textColor.addEventListener("change", watchTextColor, false);
+
         function watchBackgroundColor(event) {
             backgroundColorRep.value = event.target.value
+        }
+        function watchTextColor(event) {
+            textColorRep.value = event.target.value
         }
     </script>
 </body>

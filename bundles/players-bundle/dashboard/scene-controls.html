@@ -4,15 +4,24 @@
 <head>
 	<meta charset="UTF-8">
 	<style>
-
+		.pb-navigation {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
 	</style>
 </head>
 
 <body>
-	<h6>scene controls</h6>
-
+	<div class="pb-navigation">
+		<button id="pbPrev" class="pb-button pb-prev">prev</button>
+		<button id="pbNext" class="pb-button pb-next">next</button>
+	</div>
 	<script>
-
+		pbNext.addEventListener('click', showNextPlayer, false)
+		function showNextPlayer() {
+			nodecg.sendMessage('showNextPlayer')
+		}
 	</script>
 </body>
 

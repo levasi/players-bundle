@@ -3,10 +3,19 @@ let sib = new SiBHelper();
 initSiB();
 
 const backgroundColorRep = nodecg.Replicant('backgroundColor', 'players-bundle')
-backgroundColorRep.on('change', (newValue, oldValue) => {
-    console.log(newValue, oldValue)
+const textColorRep = nodecg.Replicant('textColor', 'players-bundle')
+
+backgroundColorRep.on('change', (newValue) => {
     setBackgroundColor(newValue)
 });
+
+textColorRep.on('change', (newValue) => {
+    setTextColor(newValue)
+});
+
+nodecg.listenFor('showNextPlayer', () => {
+    player.next();
+})
 
 function initSiB() {
     initSettingsAndData();
