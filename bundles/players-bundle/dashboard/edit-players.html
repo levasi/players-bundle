@@ -4,12 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <style>
+        .player-images {
+            margin: 10px 0;
+        }
 
+        .player-images img {
+            max-width: 90px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="pb-wrapper">
+
+        <select>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+
+        <input id="firstName" type="text" placeholder="firstName">
+        <input id="lastName" type="text" placeholder="lastName">
+        <input id="status" type="text" placeholder="status">
+
+        <input id="number" type="number" placeholder="number">
+        <input id="age" type="number" placeholder="age">
+        <input id="height" type="number" placeholder="height">
+        <input id="weight" type="number" placeholder="weight">
+
+        <input type="file" id="flag" name="flag" accept="image/png, image/jpeg">
+
+        <input type="file" id="playerImage" name="playerImage" accept="image/png, image/jpeg">
+
+        <input type="file" id="logo" name="logo" accept="image/png, image/jpeg">
+        <div class="player-images" id="playerImages"></div>
+        <button id="addPlayer">Add player</button>
+        <button id="removePlayer">Remove player</button>
+
+
+    </div>
     <script>
+        const AddPlayerButton = document.getElementById("addPlayer")
+        const firstName = document.getElementById("firstName")
+        const lastName = document.getElementById("lastName")
+        const status = document.getElementById("status")
+        const age = document.getElementById("age")
+        const number = document.getElementById("number")
+        const height = document.getElementById("height")
+        const weight = document.getElementById("weight")
+        const flag = document.getElementById("flag")
+        const playerImages = document.getElementById("playerImages")
+        const playerImage = document.getElementById("playerImage")
+        const logo = document.getElementById("logo")
+
+        const playerImagesRep = nodecg.Replicant('assets:playerImages');
+
+        playerImagesRep.on('change', (data) => {
+            playerImages.innerHTML = ''
+            data.forEach(element => {
+                const url = element.url;
+                let img = document.createElement('IMG')
+                img.src = url
+                playerImages.appendChild(img)
+            });
+
+
+        })
+        AddPlayerButton.addEventListener('click', addPlayer, false)
+
+        function addPlayer() {
+            const playerData = {}
+            playerData.firstName = firstName.value
+            playerData.lastName = lastName.value
+            playerData.status = status.value
+            playerData.age = age.value
+            playerData.number = number.value
+            playerData.height = height.value
+            playerData.weight = weight.value
+            playerData.flag = flag.value
+            playerData.playerImage = playerImage.value
+            playerData.logo = logo.value
+
+            nodecg.sendMessage('addPlayer', playerData)
+        }
+
 
     </script>
 </body>

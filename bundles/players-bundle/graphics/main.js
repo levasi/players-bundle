@@ -16,6 +16,15 @@ textColorRep.on('change', (newValue) => {
 nodecg.listenFor('showNextPlayer', () => {
     player.next();
 })
+const playerImagesRep = nodecg.Replicant('assets:playerImages');
+
+nodecg.listenFor('addPlayer', playerData => {
+    playerData.imgPlayer = playerImagesRep.value[0].url
+    players.push(playerData)
+
+    showTemplate(players)
+
+})
 
 function initSiB() {
     initSettingsAndData();
@@ -645,6 +654,7 @@ $(window).on('load', function () {
 
 //API functions
 function showTemplate(data) {
+
     player.setData(data.concat());
     player.stop();
     player.currentIdx = -1;

@@ -20,6 +20,38 @@
   ],
   "nodecg": {
     "compatibleRange": "^1.1.1",
+    "assetCategories": [
+      {
+        "name": "playerImages",
+        "title": "Player Images",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "gif",
+          "png"
+        ]
+      },
+      {
+        "name": "flagImages",
+        "title": "Flag Images",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "gif",
+          "png"
+        ]
+      },
+      {
+        "name": "logoImages",
+        "title": "Boxart",
+        "allowedTypes": [
+          "jpg",
+          "jpeg",
+          "gif",
+          "png"
+        ]
+      }
+    ],
     "dashboardPanels": [
       {
         "name": "Scene Settings",
@@ -31,7 +63,7 @@
       {
         "name": "Edit players",
         "title": "Edit players",
-        "width": 2,
+        "width": 9,
         "file": "edit-players.html",
         "headerColor": "#525F78"
       },
