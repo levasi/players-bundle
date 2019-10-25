@@ -21,6 +21,9 @@ textColorRep.on('change', (newValue) => {
 nodecg.listenFor('showNextPlayer', () => {
     player.next();
 })
+nodecg.listenFor('showPrevPlayer', () => {
+    player.prev();
+})
 const playerImagesRep = nodecg.Replicant('assets:playerImages');
 
 nodecg.listenFor('addPlayer', newPlayer => {
@@ -244,6 +247,10 @@ class Player {
         )
 
     }
+    prev() {
+        this.currentIdx = (this.currentIdx - 1) % this.data.length
+        this.playNext(this.currentIdx)
+    }
 
     stop() {
         if (this.currentTL)
@@ -268,8 +275,6 @@ class Player {
         if (this.init) {
             this.init = false;
             this.updateData(this.data[this.currentIdx]);
-
-
 
             tl = new TimelineLite();
             tl.to(backgroundTL,

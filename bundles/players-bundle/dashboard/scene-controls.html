@@ -20,8 +20,12 @@
 	</div>
 	<script>
 		pbNext.addEventListener('click', showNextPlayer, false)
+		pbPrev.addEventListener('click', showPrevPlayer, false)
 		function showNextPlayer() {
 			nodecg.sendMessage('showNextPlayer')
+		}
+		function showPrevPlayer() {
+			nodecg.sendMessage('showPrevPlayer')
 		}
 	</script>
 </body>
