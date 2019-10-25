@@ -63,7 +63,7 @@
       {
         "name": "Edit players",
         "title": "Edit players",
-        "width": 9,
+        "width": 4,
         "file": "edit-players.html",
         "headerColor": "#525F78"
       },

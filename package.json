@@ -161,7 +161,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-env": "^7.6.3",
     "aliasify": "^2.1.0",
     "ava": "^2.2.0",
     "axios": "^0.18.1",

@@ -4,9 +4,14 @@ initSiB();
 
 const backgroundColorRep = nodecg.Replicant('backgroundColor', 'players-bundle')
 const textColorRep = nodecg.Replicant('textColor', 'players-bundle')
+const playersDataRep = nodecg.Replicant('playersData', 'players-bundle')
+let serverPlayers = []
 
+playersDataRep.on('change', (newValue) => {
+
+});
 backgroundColorRep.on('change', (newValue) => {
-    setBackgroundColor(newValue)
+    setBackgroundColor('newPlayers', newValue)
 });
 
 textColorRep.on('change', (newValue) => {
@@ -18,12 +23,14 @@ nodecg.listenFor('showNextPlayer', () => {
 })
 const playerImagesRep = nodecg.Replicant('assets:playerImages');
 
-nodecg.listenFor('addPlayer', playerData => {
-    playerData.imgPlayer = playerImagesRep.value[0].url
-    players.push(playerData)
-
-    showTemplate(players)
-
+nodecg.listenFor('addPlayer', newPlayer => {
+    serverPlayers = []
+    playersDataRep.value.forEach(player => {
+        serverPlayers.push(player)
+    })
+    newPlayer.imgPlayer = playerImagesRep.value[0].url
+    players.push(newPlayer)
+    showTemplate(serverPlayers)
 })
 
 function initSiB() {
@@ -523,7 +530,6 @@ class Keyboard {
         }
     }
 }
-
 
 var players = [
     {

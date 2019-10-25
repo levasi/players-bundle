@@ -13,40 +13,60 @@
             margin-right: 10px;
         }
     </style>
+
 </head>
 
 <body>
-    <div class="pb-wrapper">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <div class="container pb-wrapper">
+        <div class="row">
+            <div class="col-6 p-2">
+                <div class="input-group mb-2">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <input class="form-control mb-2" id="firstName" type="text" placeholder="firstName">
+                <input class="form-control mb-2" id="lastName" type="text" placeholder="lastName">
+                <input class="form-control mb-2" id="status" type="text" placeholder="status">
 
-        <select>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-        </select>
+                <input class="form-control mb-2" id="number" type="number" placeholder="number">
+                <input class="form-control mb-2" id="age" type="number" placeholder="age">
+                <input class="form-control mb-2" id="height" type="number" placeholder="height">
+                <input class="form-control mb-2" id="weight" type="number" placeholder="weight">
 
-        <input id="firstName" type="text" placeholder="firstName">
-        <input id="lastName" type="text" placeholder="lastName">
-        <input id="status" type="text" placeholder="status">
-
-        <input id="number" type="number" placeholder="number">
-        <input id="age" type="number" placeholder="age">
-        <input id="height" type="number" placeholder="height">
-        <input id="weight" type="number" placeholder="weight">
-
-        <input type="file" id="flag" name="flag" accept="image/png, image/jpeg">
-
-        <input type="file" id="playerImage" name="playerImage" accept="image/png, image/jpeg">
-
-        <input type="file" id="logo" name="logo" accept="image/png, image/jpeg">
-        <div class="player-images" id="playerImages"></div>
-        <button id="addPlayer">Add player</button>
-        <button id="removePlayer">Remove player</button>
-
-
+                <div class="custom-file mb-2">
+                    <input class="custom-file-input" type="file" id="playerImage" name="playerImage"
+                        accept="image/png, image/jpeg">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose player image</label>
+                </div>
+                <div class="custom-file mb-2">
+                    <input class="custom-file-input" type="file" id="flag" name="flag" accept="image/png, image/jpeg">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose player flag</label>
+                </div>
+                <div class="custom-file mb-2">
+                    <input class="custom-file-input" type="file" id="logo" name="logo" accept="image/png, image/jpeg">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose player logo</label>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-success" id="createPlayer">Create</button>
+                    <button class="btn btn-success" id="addPlayer">Add</button>
+                    <button class="btn btn-success" id="removePlayer">Remove</button>
+                </div>
+            </div>
+            <div class="col-6 p-2">
+                <div class="player-images" id="playerImages"></div>
+            </div>
+        </div>
     </div>
     <script>
-        const AddPlayerButton = document.getElementById("addPlayer")
+
+        const addPlayerButton = document.getElementById("addPlayer")
+        const removePlayerButton = document.getElementById("removePlayer")
+        const createPlayerButton = document.getElementById("createPlayer")
         const firstName = document.getElementById("firstName")
         const lastName = document.getElementById("lastName")
         const status = document.getElementById("status")
@@ -58,21 +78,55 @@
         const playerImages = document.getElementById("playerImages")
         const playerImage = document.getElementById("playerImage")
         const logo = document.getElementById("logo")
+        const playerSelect = document.getElementById('inputGroupSelect01')
 
         const playerImagesRep = nodecg.Replicant('assets:playerImages');
+        const playersDataRep = nodecg.Replicant('playersData')
 
         playerImagesRep.on('change', (data) => {
             playerImages.innerHTML = ''
             data.forEach(element => {
                 const url = element.url;
                 let img = document.createElement('IMG')
+                img.className = 'rounded border border-secondary'
                 img.src = url
                 playerImages.appendChild(img)
             });
-
-
         })
-        AddPlayerButton.addEventListener('click', addPlayer, false)
+
+        // add player select event
+        playerSelect.addEventListener('change', (event) => {
+            updateInputWithData(playerSelect.value)
+        })
+
+        // update inputs data players
+        function updateInputWithData(fName) {
+            const selectedPlayerData = playersDataRep.value.filter(player => {
+                return player.firstName === fName
+            })
+            firstName.value = selectedPlayerData[0].firstName
+            lastName.value = selectedPlayerData[0].lastName
+            status.value = selectedPlayerData[0].status
+            number.value = selectedPlayerData[0].number
+            age.value = selectedPlayerData[0].age
+            height.value = selectedPlayerData[0].height
+            weight.value = selectedPlayerData[0].weight
+        }
+
+        // Update players list
+        playersDataRep.on('change', players => {
+            playerSelect.innerText = ''
+            players.forEach(player => {
+                if (player.firstName !== '') {
+                    const option = document.createElement('option')
+                    option.value = player.firstName
+                    option.innerText = player.firstName
+                    playerSelect.appendChild(option)
+                }
+            })
+        })
+
+        addPlayerButton.addEventListener('click', addPlayer, false)
 
         function addPlayer() {
             const playerData = {}
@@ -84,14 +138,40 @@
             playerData.height = height.value
             playerData.weight = weight.value
             playerData.flag = flag.value
-            playerData.playerImage = playerImage.value
+            playerData.imgPlayer = playerImage.value
             playerData.logo = logo.value
+            console.log(playerImage.value);
 
             nodecg.sendMessage('addPlayer', playerData)
         }
 
+        // reset fields
+        createPlayerButton.addEventListener('click', onCreatePlayer)
+
+        function onCreatePlayer() {
+            playerSelect.value = null
+            firstName.value = null
+            lastName.value = null
+            status.value = null
+            age.value = null
+            number.value = null
+            height.value = null
+            weight.value = null
+            flag.value = null
+            playerImage.value = null
+            logo.value = null
+        }
+        removePlayerButton.addEventListener('click', removePlayer)
+        function removePlayer() {
+            playersDataRep.value.filter((player, index) => {
+                if (player.firstName === playerSelect.value) {
+                    nodecg.sendMessage('removePlayer', index)
+                }
+            })
+        }
 
     </script>
+
 </body>
 
 </html>
