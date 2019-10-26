@@ -5,11 +5,38 @@ initSiB();
 const backgroundColorRep = nodecg.Replicant('backgroundColor', 'players-bundle')
 const textColorRep = nodecg.Replicant('textColor', 'players-bundle')
 const playersDataRep = nodecg.Replicant('playersData', 'players-bundle')
-let serverPlayers = []
+
+let players
 
 playersDataRep.on('change', (newValue) => {
 
 });
+function readPlayers() {
+    fetch('./assets/playersData.json', {
+        credentials: 'same-origin'
+    })
+        .then(response => {
+            return response.json()
+        })
+        .then(json => {
+            players = json
+        });
+}
+readPlayers()
+
+function addPlayer(newPlayer) {
+    // console.log(newPlayer);
+    players.push(newPlayer)
+
+}
+
+nodecg.listenFor('addPlayer', newPlayer => {
+    readPlayers()
+    addPlayer(newPlayer)
+    playersDataRep.value = players
+    showTemplate(players)
+})
+
 backgroundColorRep.on('change', (newValue) => {
     setBackgroundColor('newPlayers', newValue)
 });
@@ -24,17 +51,8 @@ nodecg.listenFor('showNextPlayer', () => {
 nodecg.listenFor('showPrevPlayer', () => {
     player.prev();
 })
-const playerImagesRep = nodecg.Replicant('assets:playerImages');
+// const playerImagesRep = nodecg.Replicant('assets:playerImages');
 
-nodecg.listenFor('addPlayer', newPlayer => {
-    serverPlayers = []
-    playersDataRep.value.forEach(player => {
-        serverPlayers.push(player)
-    })
-    newPlayer.imgPlayer = playerImagesRep.value[0].url
-    players.push(newPlayer)
-    showTemplate(serverPlayers)
-})
 
 function initSiB() {
     initSettingsAndData();
@@ -536,48 +554,48 @@ class Keyboard {
     }
 }
 
-var players = [
-    {
-        flag: 'assets/images/team-logo-player.png',
-        logo: 'assets/images/team-logo-player.png',
-        imgPlayer: 'assets/images/player.png',
-        firstName: 'Mohamed',
-        lastName: 'Salah Lorem ipsum',
-        playerC: 'C',
-        number: '11',
-        status: 'Forward, Right Winger',
-        age: '20',
-        height: '17',
-        weight: '700'
-    },
-    {
-        flag: 'assets/images/team-logo-player.png',
-        logo: 'assets/images/Liverpool.png',
-        imgPlayer: 'assets/images/MohamedSalah.png',
-        firstName: 'Tobias',
-        lastName: 'Ericsson',
-        playerC: 'C',
-        number: '12',
-        status: 'Forward, Right Winger',
-        age: '266',
-        height: '187',
-        weight: '10'
-    },
-    {
-        flag: '',
-        logo: 'assets/images/Liverpool.png',
-        imgPlayer: '',
-        firstName: 'Mohamed Lorem ipsum',
-        lastName: 'Salah',
-        playerC: 'C',
-        number: '13',
-        status: 'Goaltender',
-        age: '26',
-        height: '175',
-        weight: '70'
-    }
+// var players = [
+//     {
+//         flag: 'assets/images/team-logo-player.png',
+//         logo: 'assets/images/team-logo-player.png',
+//         imgPlayer: 'assets/images/player.png',
+//         firstName: 'Mohamed',
+//         lastName: 'Salah Lorem ipsum',
+//         playerC: 'C',
+//         number: '11',
+//         status: 'Forward, Right Winger',
+//         age: '20',
+//         height: '17',
+//         weight: '700'
+//     },
+//     {
+//         flag: 'assets/images/team-logo-player.png',
+//         logo: 'assets/images/Liverpool.png',
+//         imgPlayer: 'assets/images/MohamedSalah.png',
+//         firstName: 'Tobias',
+//         lastName: 'Ericsson',
+//         playerC: 'C',
+//         number: '12',
+//         status: 'Forward, Right Winger',
+//         age: '266',
+//         height: '187',
+//         weight: '10'
+//     },
+//     {
+//         flag: '',
+//         logo: 'assets/images/Liverpool.png',
+//         imgPlayer: '',
+//         firstName: 'Mohamed Lorem ipsum',
+//         lastName: 'Salah',
+//         playerC: 'C',
+//         number: '13',
+//         status: 'Goaltender',
+//         age: '26',
+//         height: '175',
+//         weight: '70'
+//     }
 
-];
+// ];
 
 const anim = new Anim();
 const player = new Player();
@@ -654,6 +672,7 @@ $(window).on('load', function () {
     }
 
 
+    console.log(players);
 
     showTemplate(players);
     setScaleMode(false);
@@ -848,3 +867,5 @@ function toggleFullScreen() {
         }
     }
 }
+
+

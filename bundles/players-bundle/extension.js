@@ -12,13 +12,11 @@ module.exports = function (nodecg) {
 	nodecg.listenFor('addPlayer', newPlayer => {
 
 		// add new player to players
+
 		playersData.push(newPlayer)
 
-		// update players data replicant
-		playersDataRep.value = playersData
-
 		// write new updated players to json file
-		fs.writeFile(`${__dirname}\\playersData.json`, JSON.stringify(playersData), function (err) {
+		fs.writeFileSync(`${__dirname}\\playersData.json`, JSON.stringify(playersData, null, 2), function (err) {
 			if (err) throw err;
 		});
 

@@ -21,41 +21,46 @@
     <div class="container pb-wrapper">
         <div class="row">
             <div class="col-6 p-2">
-                <div class="input-group mb-2">
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-                <input class="form-control mb-2" id="firstName" type="text" placeholder="firstName">
-                <input class="form-control mb-2" id="lastName" type="text" placeholder="lastName">
-                <input class="form-control mb-2" id="status" type="text" placeholder="status">
+                <form id="playerForm">
+                    <div class="input-group mb-2">
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <input name="firstName" class="form-control mb-2" id="firstName" type="text"
+                        placeholder="firstName">
+                    <input class="form-control mb-2" id="lastName" type="text" placeholder="lastName">
+                    <input class="form-control mb-2" id="status" type="text" placeholder="status">
 
-                <input class="form-control mb-2" id="number" type="number" placeholder="number">
-                <input class="form-control mb-2" id="age" type="number" placeholder="age">
-                <input class="form-control mb-2" id="height" type="number" placeholder="height">
-                <input class="form-control mb-2" id="weight" type="number" placeholder="weight">
+                    <input class="form-control mb-2" id="number" type="number" placeholder="number">
+                    <input class="form-control mb-2" id="age" type="number" placeholder="age">
+                    <input class="form-control mb-2" id="height" type="number" placeholder="height">
+                    <input class="form-control mb-2" id="weight" type="number" placeholder="weight">
 
-                <div class="custom-file mb-2">
-                    <input class="custom-file-input" type="file" id="playerImage" name="playerImage"
-                        accept="image/png, image/jpeg">
-                    <label class="custom-file-label" for="inputGroupFile01">Choose player image</label>
-                </div>
-                <div class="custom-file mb-2">
-                    <input class="custom-file-input" type="file" id="flag" name="flag" accept="image/png, image/jpeg">
-                    <label class="custom-file-label" for="inputGroupFile01">Choose player flag</label>
-                </div>
-                <div class="custom-file mb-2">
-                    <input class="custom-file-input" type="file" id="logo" name="logo" accept="image/png, image/jpeg">
-                    <label class="custom-file-label" for="inputGroupFile01">Choose player logo</label>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <button class="btn btn-success" id="createPlayer">Create</button>
-                    <button class="btn btn-success" id="addPlayer">Add</button>
-                    <button class="btn btn-success" id="removePlayer">Remove</button>
-                </div>
+                    <div class="custom-file mb-2">
+                        <input class="custom-file-input" type="file" id="playerImage" name="playerImage"
+                            accept="image/png, image/jpeg">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose player image</label>
+                    </div>
+                    <div class="custom-file mb-2">
+                        <input class="custom-file-input" type="file" id="flag" name="flag"
+                            accept="image/png, image/jpeg">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose player flag</label>
+                    </div>
+                    <div class="custom-file mb-2">
+                        <input class="custom-file-input" type="file" id="logo" name="logo"
+                            accept="image/png, image/jpeg">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose player logo</label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-success" id="createPlayer">Create</button>
+                        <button type="submit" class="btn btn-success" id="addPlayer">Add</button>
+                        <button class="btn btn-success" id="removePlayer">Remove</button>
+                    </div>
+                </form>
             </div>
             <div class="col-6 p-2">
                 <div class="player-images" id="playerImages"></div>
@@ -64,6 +69,7 @@
     </div>
     <script>
 
+        const playerForm = document.getElementById("playerForm")
         const addPlayerButton = document.getElementById("addPlayer")
         const removePlayerButton = document.getElementById("removePlayer")
         const createPlayerButton = document.getElementById("createPlayer")
@@ -140,9 +146,15 @@
             playerData.flag = flag.value
             playerData.imgPlayer = playerImage.value
             playerData.logo = logo.value
-            console.log(playerImage.value);
 
-            nodecg.sendMessage('addPlayer', playerData)
+            const url = '/demodata'
+            // const data = playerData
+
+            fetch('/bundles/players-bundle/extension.js', {
+                method: 'POST',
+                body: JSON.stringify(playerData)
+            });
+            // nodecg.sendMessage('addPlayer', playerData)
         }
 
         // reset fields
