@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = function (nodecg) {
-
+	const playersUrl = `${__dirname}\\graphics\\assets\\playersData.json`
 	const fs = require('fs');
-	let playersData = JSON.parse(fs.readFileSync(`${__dirname}\\playersData.json`))
+	let playersData = JSON.parse(fs.readFileSync(playersUrl))
 
 	const playersDataRep = nodecg.Replicant('playersData')
 
@@ -16,7 +16,7 @@ module.exports = function (nodecg) {
 		playersData.push(newPlayer)
 
 		// write new updated players to json file
-		fs.writeFileSync(`${__dirname}\\playersData.json`, JSON.stringify(playersData, null, 2), function (err) {
+		fs.writeFileSync(playersUrl, JSON.stringify(playersData, null, 2), function (err) {
 			if (err) throw err;
 		});
 
@@ -34,7 +34,7 @@ module.exports = function (nodecg) {
 
 		playersDataRep.value = filteredPlayers
 
-		fs.writeFile(`${__dirname}\\playersData.json`, JSON.stringify(filteredPlayers), function (err) {
+		fs.writeFile(`${__dirname}\\playersData.json`, JSON.stringify(filteredPlayers, null, 2), function (err) {
 			if (err) throw err;
 		});
 

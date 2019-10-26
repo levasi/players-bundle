@@ -8,9 +8,12 @@
             margin: 10px 0;
         }
 
-        .player-images img {
+        #playerImagePrev {
             max-width: 90px;
-            margin-right: 10px;
+        }
+
+        .custom-file {
+            height: auto !important;
         }
     </style>
 
@@ -20,7 +23,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <div class="container pb-wrapper">
         <div class="row">
-            <div class="col-6 p-2">
+            <div class="col-12 p-2">
                 <form id="playerForm">
                     <div class="input-group mb-2">
                         <select class="custom-select" id="inputGroupSelect01">
@@ -43,6 +46,7 @@
                     <div class="custom-file mb-2">
                         <input class="custom-file-input" type="file" id="playerImage" name="playerImage"
                             accept="image/png, image/jpeg">
+                        <img src="" id="playerImagePrev" alt="" class="rounded border border-secondary">
                         <label class="custom-file-label" for="inputGroupFile01">Choose player image</label>
                     </div>
                     <div class="custom-file mb-2">
@@ -62,11 +66,12 @@
                     </div>
                 </form>
             </div>
-            <div class="col-6 p-2">
+            <!-- <div class="col-6 p-2">
                 <div class="player-images" id="playerImages"></div>
-            </div>
+            </div> -->
         </div>
     </div>
+    <script src="players.js"></script>
     <script>
 
         const playerForm = document.getElementById("playerForm")
@@ -81,23 +86,48 @@
         const height = document.getElementById("height")
         const weight = document.getElementById("weight")
         const flag = document.getElementById("flag")
-        const playerImages = document.getElementById("playerImages")
+        // const playerImages = document.getElementById("playerImages")
+
         const playerImage = document.getElementById("playerImage")
         const logo = document.getElementById("logo")
+
         const playerSelect = document.getElementById('inputGroupSelect01')
 
         const playerImagesRep = nodecg.Replicant('assets:playerImages');
         const playersDataRep = nodecg.Replicant('playersData')
 
-        playerImagesRep.on('change', (data) => {
-            playerImages.innerHTML = ''
-            data.forEach(element => {
-                const url = element.url;
-                let img = document.createElement('IMG')
-                img.className = 'rounded border border-secondary'
-                img.src = url
-                playerImages.appendChild(img)
-            });
+        // playerImagesRep.on('change', (data) => {
+        //     playerImages.innerHTML = ''
+        //     data.forEach(element => {
+        //         const url = element.url;
+        //         let img = document.createElement('IMG')
+        //         img.className = 'rounded border border-secondary'
+        //         img.src = url
+        //         playerImages.appendChild(img)
+        //     });
+        // })
+
+        playerImage.addEventListener('input', event => {
+            const preview = document.getElementById('playerImagePrev')
+            const reader = new FileReader()
+            const file = playerImage.files[0]
+            let formData = new FormData()
+            formData.append('image', file);
+            // fetch('./uploads', {
+            //     method: "POST",
+            //     body: 'asdfg'
+            // }).then(data => {
+            //     console.log(data)
+            // })
+            // nodecg.sendMessage('imageUpload', formData)
+            reader.onloadend = () => {
+                preview.src = reader.result;
+            }
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
         })
 
         // add player select event
@@ -147,14 +177,7 @@
             playerData.imgPlayer = playerImage.value
             playerData.logo = logo.value
 
-            const url = '/demodata'
-            // const data = playerData
-
-            fetch('/bundles/players-bundle/extension.js', {
-                method: 'POST',
-                body: JSON.stringify(playerData)
-            });
-            // nodecg.sendMessage('addPlayer', playerData)
+            nodecg.sendMessage('addPlayer', playerData)
         }
 
         // reset fields

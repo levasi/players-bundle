@@ -9,8 +9,49 @@ const playersDataRep = nodecg.Replicant('playersData', 'players-bundle')
 let players
 
 playersDataRep.on('change', (newValue) => {
-
 });
+
+const demoPlayers = [
+    {
+        "flag": "assets/images/team-logo-player.png",
+        "logo": "assets/images/team-logo-player.png",
+        "imgPlayer": "assets/images/player.png",
+        "firstName": "demo 1",
+        "lastName": "Salah Lorem ipsum",
+        "playerC": "C",
+        "number": "11",
+        "status": "Forward, Right Winger",
+        "age": "20",
+        "height": "17",
+        "weight": "700"
+    },
+    {
+        "flag": "assets/images/team-logo-player.png",
+        "logo": "assets/images/Liverpool.png",
+        "imgPlayer": "assets/images/MohamedSalah.png",
+        "firstName": "demo 2",
+        "lastName": "Ericsson",
+        "playerC": "C",
+        "number": "12",
+        "status": "Forward, Right Winger",
+        "age": "266",
+        "height": "187",
+        "weight": "10"
+    },
+    {
+        "flag": "",
+        "logo": "assets/images/Liverpool.png",
+        "imgPlayer": "",
+        "firstName": "demo 3",
+        "lastName": "Salah",
+        "playerC": "C",
+        "number": "13",
+        "status": "Goaltender",
+        "age": "26",
+        "height": "175",
+        "weight": "70"
+    }
+]
 function readPlayers() {
     fetch('./assets/playersData.json', {
         credentials: 'same-origin'
@@ -25,15 +66,15 @@ function readPlayers() {
 readPlayers()
 
 function addPlayer(newPlayer) {
-    // console.log(newPlayer);
-    players.push(newPlayer)
 
 }
 
 nodecg.listenFor('addPlayer', newPlayer => {
-    readPlayers()
-    addPlayer(newPlayer)
-    playersDataRep.value = players
+
+    players.push(newPlayer)
+    // addPlayer(newPlayer)
+    // playersDataRep.value = players
+    console.log(players)
     showTemplate(players)
 })
 
@@ -474,12 +515,6 @@ class Anim {
                 ease: Power2.easeOut
             }, .1, "-=.8")
 
-
-
-
-
-
-
         this.playerAnimTL = tl;
         return this.playerAnimTL;
 
@@ -672,9 +707,8 @@ $(window).on('load', function () {
     }
 
 
-    console.log(players);
 
-    showTemplate(players);
+    showTemplate(demoPlayers);
     setScaleMode(false);
 
 
@@ -867,5 +901,4 @@ function toggleFullScreen() {
         }
     }
 }
-
 

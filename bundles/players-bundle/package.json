@@ -84,5 +84,14 @@
     ]
   },
   "repository": "https://github.com/levasi/template-test.git",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6-alpha.6",
+    "jquery": "^3.4.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4"
+  }
 }
