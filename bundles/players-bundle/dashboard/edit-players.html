@@ -150,11 +150,11 @@
             const url = '/demodata'
             // const data = playerData
 
-            fetch('/bundles/players-bundle/extension.js', {
-                method: 'POST',
-                body: JSON.stringify(playerData)
-            });
-            // nodecg.sendMessage('addPlayer', playerData)
+            // fetch('/bundles/players-bundle/extension.js', {
+            //     method: 'POST',
+            //     body: JSON.stringify(playerData)
+            // });
+            nodecg.sendMessage('addPlayer', playerData)
         }
 
         // reset fields

@@ -4,7 +4,7 @@
 /build/bower_components
 /build/node_modules
 npm-debug.log
-
+/bundles/players-bundle/graphics/assets/playersData.json
 # Local bundles
 # /bundles/**
 
