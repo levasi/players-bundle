@@ -1,7 +1,10 @@
 'use strict';
-
+const express = require('express');
+const app = express();
 module.exports = function (nodecg) {
-
+	app.get('/custom', (req, res) => {
+		res.send('OK!');
+	});
 	const fs = require('fs');
 	let playersData = JSON.parse(fs.readFileSync(`${__dirname}\\playersData.json`))
 
@@ -10,7 +13,9 @@ module.exports = function (nodecg) {
 	playersDataRep.value = playersData
 
 	nodecg.listenFor('addPlayer', newPlayer => {
-
+		app.post('/uploads', (req, res, next) => {
+			console.log(req.files.foo)
+		})
 		// add new player to players
 
 		playersData.push(newPlayer)
@@ -39,4 +44,5 @@ module.exports = function (nodecg) {
 		});
 
 	})
+	nodecg.mount(app);
 };
