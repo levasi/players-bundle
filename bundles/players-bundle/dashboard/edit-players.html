@@ -32,13 +32,13 @@
                     </div>
                     <input name="firstName" class="form-control mb-2" id="firstName" type="text"
                         placeholder="firstName">
-                    <input class="form-control mb-2" id="lastName" type="text" placeholder="lastName">
-                    <input class="form-control mb-2" id="status" type="text" placeholder="status">
+                    <input class="form-control mb-2" id="lastName" name="lastName" type="text" placeholder="lastName">
+                    <input class="form-control mb-2" id="status" name="status" type="text" placeholder="status">
 
-                    <input class="form-control mb-2" id="number" type="number" placeholder="number">
-                    <input class="form-control mb-2" id="age" type="number" placeholder="age">
-                    <input class="form-control mb-2" id="height" type="number" placeholder="height">
-                    <input class="form-control mb-2" id="weight" type="number" placeholder="weight">
+                    <input class="form-control mb-2" id="number" name="number" type="number" placeholder="number">
+                    <input class="form-control mb-2" id="age" name="age" type="number" placeholder="age">
+                    <input class="form-control mb-2" id="height" name="height" type="number" placeholder="height">
+                    <input class="form-control mb-2" id="weight" name="weight" type="number" placeholder="weight">
 
                     <div class="custom-file mb-2">
                         <input class="custom-file-input" type="file" id="playerImage" name="playerImage"
@@ -58,6 +58,7 @@
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
 
         const playerForm = document.getElementById("playerForm")
@@ -126,24 +127,28 @@
         addPlayerButton.addEventListener('click', addPlayer, false)
 
         function addPlayer() {
-            const playerData = {}
-            playerData.firstName = firstName.value
-            playerData.lastName = lastName.value
-            playerData.status = status.value
-            playerData.age = age.value
-            playerData.number = number.value
-            playerData.height = height.value
-            playerData.weight = weight.value
-            console.log(playerImage.value);
 
-            const url = '/demodata'
-            // const data = playerData
+            const playerFormData = new FormData(playerForm)
 
-            // fetch('/bundles/players-bundle/extension.js', {
-            //     method: 'POST',
-            //     body: JSON.stringify(playerData)
-            // });
-            nodecg.sendMessage('addPlayer', playerData)
+            axios.post('/uploads', playerFormData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(function (response) {
+                    //handle success
+                    console.log('succes');
+
+                    console.log(response);
+                })
+                .catch(function (response) {
+                    //handle error
+                    console.log('error');
+
+                    console.log(response);
+                });
+
+            nodecg.sendMessage('addPlayer', playerFormData)
         }
 
         // reset fields

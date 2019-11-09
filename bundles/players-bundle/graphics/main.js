@@ -31,10 +31,13 @@ function addPlayer(newPlayer) {
 }
 
 nodecg.listenFor('addPlayer', newPlayer => {
-    readPlayers()
-    addPlayer(newPlayer)
-    playersDataRep.value = players
-    showTemplate(players)
+
+    //should refresh players list
+
+    // readPlayers()
+    // addPlayer(newPlayer)
+    // playersDataRep.value = players
+    // showTemplate(players)
 })
 
 backgroundColorRep.on('change', (newValue) => {
