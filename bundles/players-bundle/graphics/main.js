@@ -8,10 +8,8 @@ const playersDataRep = nodecg.Replicant('playersData', 'players-bundle')
 
 let players
 
-playersDataRep.on('change', (newValue) => {
-
-});
 function readPlayers() {
+    console.log('read players')
     fetch('./assets/playersData.json', {
         credentials: 'same-origin'
     })
@@ -24,20 +22,13 @@ function readPlayers() {
 }
 readPlayers()
 
-function addPlayer(newPlayer) {
-    // console.log(newPlayer);
-    players.push(newPlayer)
-
-}
-
-nodecg.listenFor('addPlayer', newPlayer => {
-
-    //should refresh players list
-
-    // readPlayers()
-    // addPlayer(newPlayer)
-    // playersDataRep.value = players
-    // showTemplate(players)
+nodecg.listenFor('addPlayer', () => {
+    setTimeout(() => {
+        readPlayers()
+    }, 1500)
+    setTimeout(() => {
+        showTemplate(players)
+    }, 3000)
 })
 
 backgroundColorRep.on('change', (newValue) => {

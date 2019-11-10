@@ -111,49 +111,22 @@
             weight.value = selectedPlayerData[0].weight
         }
 
-        // Update players list
-        playersDataRep.on('change', players => {
-            playerSelect.innerText = ''
-            players.forEach(player => {
-                if (player.firstName !== '') {
-                    const option = document.createElement('option')
-                    option.value = player.firstName
-                    option.innerText = player.firstName
-                    playerSelect.appendChild(option)
-                }
-            })
-        })
-
         addPlayerButton.addEventListener('click', addPlayer, false)
 
         function addPlayer() {
-
             const playerFormData = new FormData(playerForm)
+            nodecg.sendMessage('addPlayer')
 
-            axios.post('/uploads', playerFormData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
+            axios
+                .post('/uploads', playerFormData)
                 .then(function (response) {
-                    //handle success
-                    console.log('succes');
-
-                    console.log(response);
                 })
-                .catch(function (response) {
-                    //handle error
-                    console.log('error');
-
-                    console.log(response);
+                .catch(function (error) {
+                    console.log(error);
                 });
-
-            nodecg.sendMessage('addPlayer', playerFormData)
         }
 
-        // reset fields
         createPlayerButton.addEventListener('click', onCreatePlayer)
-
         function onCreatePlayer() {
             playerSelect.value = null
             firstName.value = null
